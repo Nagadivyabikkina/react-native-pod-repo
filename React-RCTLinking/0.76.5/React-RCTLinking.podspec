@@ -33,7 +33,7 @@ Pod::Spec.new do |s|
   s.documentation_url      = "https://reactnative.dev/docs/linking"
   s.license                = package["license"]
   s.author                 = "Meta Platforms, Inc. and its affiliates"
-  s.platforms              = min_supported_versions
+  s.platforms              = { :ios => "11.0", :tvos => "9.2" }
   s.compiler_flags         = folly_compiler_flags + ' -Wno-nullability-completeness'
   s.source                 = source
   s.source_files           = "Libraries/LinkingIOS/*.{m,mm}"

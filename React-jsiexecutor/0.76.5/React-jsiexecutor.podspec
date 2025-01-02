@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
   s.homepage               = "https://reactnative.dev/"
   s.license                = package["license"]
   s.author                 = "Meta Platforms, Inc. and its affiliates"
-  s.platforms              = min_supported_versions
+  s.platforms              = { :ios => "11.0", :tvos => "9.2" }
   s.source                 = source
   s.source_files         = "ReactCommon/jsiexecutor/jsireact/*.{cpp,h}"
   s.compiler_flags         = folly_compiler_flags + ' ' + boost_compiler_flags
