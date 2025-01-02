@@ -4,6 +4,11 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
+require_relative "../../helpers.rb"
+
+def get_folly_config()
+    return Helpers::Constants.folly_config
+end
 
 js_engine = ENV['USE_HERMES'] == "0" ?
   :jsc :

@@ -4,6 +4,11 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
+require_relative "../../helpers.rb"
+
+def get_folly_config()
+    return Helpers::Constants.folly_config
+end
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']

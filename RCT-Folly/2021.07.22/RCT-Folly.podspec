@@ -3,6 +3,12 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
+require_relative "../../helpers.rb"
+
+def get_folly_config()
+    return Helpers::Constants.folly_config
+end
+
 folly_config = get_folly_config()
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_release_version = folly_config[:version]
