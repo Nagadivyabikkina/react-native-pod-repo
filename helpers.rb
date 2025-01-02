@@ -122,5 +122,16 @@ module Helpers
         def self.cxx_language_standard
             return "c++20"
         end
+
+        # Adding the `add_dependency_to_spec` method here
+        def self.add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
+            fixed_framework_name = framework_name || pod_name.gsub("-", "_")  # Replace dashes with underscores for framework names
+
+            # Assuming ReactNativePodsUtils is already available in your project
+            ReactNativePodsUtils.add_dependency(spec, pod_name, base_dir, fixed_framework_name,
+                                                 :subspec => subspec,
+                                                 :additional_paths => additional_framework_paths,
+                                                 :version => version)
+        end
     end
 end

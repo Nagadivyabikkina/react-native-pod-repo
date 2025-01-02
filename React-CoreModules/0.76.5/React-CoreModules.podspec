@@ -33,11 +33,6 @@ header_search_paths = [
   "\"${PODS_ROOT}/Headers/Public/ReactCodegen/react/renderer/components\"",
 ]
 
-def add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
-  fixed_framework_name = framework_name != nil ? framework_name : pod_name.gsub("-", "_") # frameworks can't have "-" in their name
-  ReactNativePodsUtils.add_dependency(spec, pod_name, base_dir, fixed_framework_name, :additional_paths => additional_framework_paths, :version => version)
-end
-
 Pod::Spec.new do |s|
   s.name                   = "React-CoreModules"
   s.version                = version
@@ -65,9 +60,9 @@ Pod::Spec.new do |s|
   s.dependency "React-jsi", version
   s.dependency 'React-RCTBlob'
   s.dependency "SocketRocket", socket_rocket_version
-  add_dependency(s, "React-jsinspector", :framework_name => 'jsinspector_modern')
+  Helpers::Constants.add_dependency(s, "React-jsinspector", :framework_name => 'jsinspector_modern')
 
-  add_dependency(s, "ReactCodegen")
-  add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
-  add_dependency(s, "React-NativeModulesApple")
+  Helpers::Constants.add_dependency(s, "ReactCodegen")
+  Helpers::Constants.add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
+  Helpers::Constants.add_dependency(s, "React-NativeModulesApple")
 end
