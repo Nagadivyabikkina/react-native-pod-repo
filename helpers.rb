@@ -133,8 +133,8 @@ module Helpers
 
       # If there are additional framework search paths, we add them to the config
       if additional_framework_paths.any?
-        spec.pod_target_xcconfig ||= {}  # Ensure xcconfig is initialized
-        spec.pod_target_xcconfig["FRAMEWORK_SEARCH_PATHS"] = additional_framework_paths.join(" ")
+        spec.xcconfig ||= {}  # Ensure xcconfig is initialized
+        spec.xcconfig["FRAMEWORK_SEARCH_PATHS"] = additional_framework_paths.join(" ")
       end
 
       # Handle subspec if provided

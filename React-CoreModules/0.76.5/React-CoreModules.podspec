@@ -45,7 +45,7 @@ Pod::Spec.new do |s|
   s.source                 = source
   s.source_files           = "React/CoreModules/**/*.{c,m,mm,cpp}"
   s.header_dir             = "CoreModules"
-  s.pod_target_xcconfig    = {
+  s.xcconfig               = {
                                "USE_HEADERMAP" => "YES",
                                "CLANG_CXX_LANGUAGE_STANDARD" => Helpers::Constants.cxx_language_standard,
                                "HEADER_SEARCH_PATHS" => header_search_paths.join(" ")
