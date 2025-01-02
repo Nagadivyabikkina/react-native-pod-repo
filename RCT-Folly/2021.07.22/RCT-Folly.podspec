@@ -3,13 +3,13 @@
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
 
-require_relative "./../../helpers.rb"
+require_relative "../../helpers.rb"
 
 def get_folly_config()
     return Helpers::Constants.folly_config
 end
 
-folly_config = get_folly_config()
+folly_config = Helpers::Constants.folly_config
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_release_version = folly_config[:version]
 folly_git_url = folly_config[:git]
@@ -89,7 +89,7 @@ Pod::Spec.new do |spec|
   spec.libraries           = "c++abi" # NOTE Apple-only: Keep c++abi here due to https://github.com/react-native-community/releases/issues/251
   spec.pod_target_xcconfig = { "USE_HEADERMAP" => "NO",
                                "DEFINES_MODULE" => "YES",
-                               "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard(),
+                               "CLANG_CXX_LANGUAGE_STANDARD" => Helpers::Constants.cxx_language_standard,
                                "HEADER_SEARCH_PATHS" => "\"$(PODS_TARGET_SRCROOT)\" \"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/DoubleConversion\" \"$(PODS_ROOT)/fmt/include\"",
                                # In dynamic framework (use_frameworks!) mode, ignore the unused and undefined boost symbols when generating the library.
                                "OTHER_LDFLAGS" => "\"-Wl,-U,_jump_fcontext\" \"-Wl,-U,_make_fcontext\""

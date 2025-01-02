@@ -5,7 +5,7 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
-require_relative "./../../helpers.rb"
+require_relative "../../helpers.rb"
 
 def get_folly_config()
     return Helpers::Constants.folly_config
@@ -22,7 +22,7 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_config = get_folly_config()
+folly_config = Helpers::Constants.folly_config
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_version = folly_config[:version]
 boost_compiler_flags = '-Wno-documentation'
@@ -41,7 +41,7 @@ Pod::Spec.new do |s|
   s.compiler_flags         = folly_compiler_flags + ' ' + boost_compiler_flags
   s.pod_target_xcconfig    = {
     "HEADER_SEARCH_PATHS" => "\"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/RCT-Folly\" \"$(PODS_ROOT)/DoubleConversion\" \"$(PODS_ROOT)/fmt/include\" \"$(PODS_CONFIGURATION_BUILD_DIR)/React-debug/React_debug.framework/Headers\" \"${PODS_CONFIGURATION_BUILD_DIR}/React-runtimeexecutor/React_runtimeexecutor.framework/Headers\"",
-    "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard()
+    "CLANG_CXX_LANGUAGE_STANDARD" => Helpers::Constants.cxx_language_standard
   }
   s.header_dir             = "cxxreact"
 
