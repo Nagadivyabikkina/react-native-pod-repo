@@ -25,7 +25,7 @@ folly_config = Helpers::Constants.folly_config
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_version = folly_config[:version]
 
-socket_rocket_config = get_socket_rocket_config()
+socket_rocket_config = Helpers::Constants.socket_rocket_config
 socket_rocket_version = socket_rocket_config[:version]
 
 header_search_paths = [
