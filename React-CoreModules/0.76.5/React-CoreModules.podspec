@@ -6,10 +6,6 @@
 require "json"
 require_relative "../../helpers.rb"
 
-def get_folly_config()
-    return Helpers::Constants.folly_config
-end
-
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']
 
@@ -36,6 +32,11 @@ header_search_paths = [
   "\"$(PODS_ROOT)/fmt/include\"",
   "\"${PODS_ROOT}/Headers/Public/ReactCodegen/react/renderer/components\"",
 ]
+
+def add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
+  fixed_framework_name = framework_name != nil ? framework_name : pod_name.gsub("-", "_") # frameworks can't have "-" in their name
+  ReactNativePodsUtils.add_dependency(spec, pod_name, base_dir, fixed_framework_name, :additional_paths => additional_framework_paths, :version => version)
+end
 
 Pod::Spec.new do |s|
   s.name                   = "React-CoreModules"
