@@ -21,7 +21,7 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_config = get_folly_config()
+folly_config = Helpers::Constants.folly_config
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_version = folly_config[:version]
 
