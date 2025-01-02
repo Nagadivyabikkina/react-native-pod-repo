@@ -1,6 +1,6 @@
 require 'json'
 
-package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
+package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 
 fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 

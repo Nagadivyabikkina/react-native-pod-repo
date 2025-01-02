@@ -3,7 +3,7 @@ require 'json'
 new_arch_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 ios_platform = new_arch_enabled ? '11.0' : '9.0'
 
-package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
+package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 
 Pod::Spec.new do |s|
   s.name         = package['name']
