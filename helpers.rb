@@ -124,14 +124,16 @@ module Helpers
     end
 
     # Refactored method to add dependency
-    def self.add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
+ def self.add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
       fixed_framework_name = framework_name || pod_name.gsub("-", "_")  # Replace dashes with underscores for framework names
 
-      # Add the dependency to the Podspec
-      version ||= 'latest'  # Default to the latest version if no version is provided
-      spec.dependency(pod_name, version)  # Add the base dependency
+      # Default to the latest version if no version is provided
+      version ||= 'latest'
 
-      # If there are additional framework search paths, we add them to the config
+      # Add the dependency to the Podspec
+      spec.dependency(pod_name, version)
+
+      # If there are additional framework search paths, we add them to the xcconfig
       if additional_framework_paths.any?
         spec.xcconfig ||= {}  # Ensure xcconfig is initialized
         spec.xcconfig["FRAMEWORK_SEARCH_PATHS"] = additional_framework_paths.join(" ")
