@@ -78,6 +78,10 @@ module Helpers
             return @@folly_config
         end
 
+        def get_folly_config()
+          return @@folly_config
+        end
+
         def self.set_folly_config(new_folly_config)
             @@folly_config.update(new_folly_config)
         end
