@@ -6,10 +6,6 @@
 require "json"
 require_relative "../../helpers.rb"
 
-def get_folly_config()
-    return Helpers::Constants.folly_config
-end
-
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']
 
@@ -55,7 +51,7 @@ Pod::Spec.new do |s|
   s.dependency "React-jsi"
   s.dependency "React-Core/RCTNetworkHeaders"
 
-  add_dependency(s, "ReactCodegen", :additional_framework_paths => ["build/generated/ios"])
-  add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
-  add_dependency(s, "React-NativeModulesApple", :additional_framework_paths => ["build/generated/ios"])
+  Helpers::Constants.add_dependency(s, "ReactCodegen", :additional_framework_paths => ["build/generated/ios"])
+  Helpers::Constants.add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
+  Helpers::Constants.add_dependency(s, "React-NativeModulesApple", :additional_framework_paths => ["build/generated/ios"])
 end
