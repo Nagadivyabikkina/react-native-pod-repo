@@ -6,12 +6,12 @@ fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 
 Pod::Spec.new do |s|
   s.name         = "RNCAsyncStorage"
-  s.version      = package['version']
-  s.summary      = package['description']
+  s.version      = "2.1.0"
+  s.summary      = "Asynchronous, persistent, key-value storage system for React Native."
   s.license      = package['license']
 
-  s.authors      = package['author']
-  s.homepage     = package['homepage']
+  s.authors      = "Krzysztof Borowy <contact@kborowy.com>"
+  s.homepage     = "https://github.com/react-native-async-storage/async-storage#readme"
 
   s.source       = { :git => "https://github.com/react-native-async-storage/async-storage.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,mm}"
