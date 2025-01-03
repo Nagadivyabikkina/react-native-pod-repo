@@ -35,6 +35,32 @@ class Finder
     end
 end
 
+class ReactNativePodsUtils
+        # Adding the `add_dependency_to_spec` method here
+       def self.add_dependency(spec, dependency_name, base_folder_for_frameworks, framework_name, additional_paths: [], version: nil, subspec_dependency: nil)
+           # Update Search Path
+           optional_current_search_path = spec.to_hash["pod_target_xcconfig"]["HEADER_SEARCH_PATHS"]
+           current_search_paths = (optional_current_search_path != nil ? optional_current_search_path : "")
+               .split(" ")
+           create_header_search_path_for_frameworks(base_folder_for_frameworks, dependency_name, framework_name, additional_paths)
+               .each { |path|
+                   wrapped_path = "\"#{path}\""
+                   current_search_paths << wrapped_path
+               }
+           current_pod_target_xcconfig = spec.to_hash["pod_target_xcconfig"]
+           current_pod_target_xcconfig["HEADER_SEARCH_PATHS"] = current_search_paths.join(" ")
+           spec.pod_target_xcconfig = current_pod_target_xcconfig
+
+           actual_dependency = subspec_dependency != nil ? "#{dependency_name}/#{subspec_dependency}" : dependency_name
+           # Set Dependency
+           if !version
+               spec.dependency actual_dependency
+           else
+               spec.dependency actual_dependency, version
+           end
+       end
+end
+
 module Helpers
     class Constants
         @@boost_config = {
@@ -122,29 +148,10 @@ module Helpers
         def self.cxx_language_standard
             return "c++20"
         end
+        def self.add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
+             fixed_framework_name = framework_name != nil ? framework_name : pod_name.gsub("-", "_") # frameworks can't have "-" in their name
+              ReactNativePodsUtils.add_dependency(spec, pod_name, base_dir, fixed_framework_name, :additional_paths => additional_framework_paths, :version => version)
+        end
 
-        # Adding the `add_dependency_to_spec` method here
-       def self.add_dependency(spec, dependency_name, base_folder_for_frameworks, framework_name, additional_paths: [], version: nil, subspec_dependency: nil)
-           # Update Search Path
-           optional_current_search_path = spec.to_hash["pod_target_xcconfig"]["HEADER_SEARCH_PATHS"]
-           current_search_paths = (optional_current_search_path != nil ? optional_current_search_path : "")
-               .split(" ")
-           create_header_search_path_for_frameworks(base_folder_for_frameworks, dependency_name, framework_name, additional_paths)
-               .each { |path|
-                   wrapped_path = "\"#{path}\""
-                   current_search_paths << wrapped_path
-               }
-           current_pod_target_xcconfig = spec.to_hash["pod_target_xcconfig"]
-           current_pod_target_xcconfig["HEADER_SEARCH_PATHS"] = current_search_paths.join(" ")
-           spec.pod_target_xcconfig = current_pod_target_xcconfig
-
-           actual_dependency = subspec_dependency != nil ? "#{dependency_name}/#{subspec_dependency}" : dependency_name
-           # Set Dependency
-           if !version
-               spec.dependency actual_dependency
-           else
-               spec.dependency actual_dependency, version
-           end
-       end
     end
 end
