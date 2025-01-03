@@ -1,4 +1,5 @@
 require 'json'
+require_relative "./new_architecture.rb"
 
 new_arch_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 ios_platform = new_arch_enabled ? '11.0' : '9.0'

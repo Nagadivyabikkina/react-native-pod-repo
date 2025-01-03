@@ -1,4 +1,5 @@
 require "json"
+require_relative "./new_architecture.rb"
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 
