@@ -36,117 +36,115 @@ class Finder
 end
 
 module Helpers
-  class Constants
-    @@boost_config = {
-        :git => "https://github.com/react-native-community/boost-for-react-native",
-    }
+    class Constants
+        @@boost_config = {
+            :git => "https://github.com/react-native-community/boost-for-react-native",
+        }
 
-    @@socket_rocket_config = {
-        :version => '0.7.1'
-    }
+        @@socket_rocket_config = {
+            :version => '0.7.1'
+        }
 
-    @@folly_config = {
-        :version => '2024.01.01.00',
-        :git => 'https://github.com/facebook/folly.git',
-        :compiler_flags => '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32'
-    }
+        @@folly_config = {
+            :version => '2024.01.01.00',
+            :git => 'https://github.com/facebook/folly.git',
+            :compiler_flags => '-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_CFG_NO_COROUTINES=1 -DFOLLY_HAVE_CLOCK_GETTIME=1 -Wno-comma -Wno-shorten-64-to-32'
+        }
 
-    @@fmt_config = {
-        :git => "https://github.com/fmtlib/fmt.git",
-    }
+        @@fmt_config = {
+            :git => "https://github.com/fmtlib/fmt.git",
+        }
 
-    @@glog_config = {
-        :git => "https://github.com/google/glog.git",
-    }
+        @@glog_config = {
+            :git => "https://github.com/google/glog.git",
+        }
 
-    @@double_conversion_config = {
-        :git => "https://github.com/google/double-conversion.git",
-    }
+        @@double_conversion_config = {
+            :git => "https://github.com/google/double-conversion.git",
+        }
 
-    def self.min_ios_version_supported
-        return '15.1'
-    end
-
-    def self.min_xcode_version_supported
-        return '15.1'
-    end
-
-    def self.folly_config
-        return @@folly_config
-    end
-
-    def self.set_folly_config(new_folly_config)
-        @@folly_config.update(new_folly_config)
-    end
-
-    def self.boost_config
-        return @@boost_config
-    end
-
-    def self.set_boost_config(new_boost_config)
-        @@boost_config.update(new_boost_config)
-    end
-
-    def self.socket_rocket_config
-        return @@socket_rocket_config
-    end
-
-    def self.set_socket_rocket_config(new_socket_rocket_config)
-        @@socket_rocket_config.update(new_socket_rocket_config)
-    end
-
-    def self.fmt_config
-        return @@fmt_config
-    end
-
-    def self.set_fmt_config(new_fmt_config)
-        @@fmt_config.update(new_fmt_config)
-    end
-
-    def self.glog_config
-        return @@glog_config
-    end
-
-    def self.set_glog_config(new_glog_config)
-        @@glog_config.update(new_glog_config)
-    end
-
-    def self.double_conversion_config
-        return @@double_conversion_config
-    end
-
-    def self.set_double_conversion_config(new_double_conversion_config)
-        @@double_conversion_config.update(new_double_conversion_config)
-    end
-
-    def self.cxx_language_standard
-        return "c++20"
-    end
-
-    # Refactored method to add dependency
- def self.add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
-      fixed_framework_name = framework_name || pod_name.gsub("-", "_")  # Replace dashes with underscores for framework names
-
-      # Default to the latest version if no version is provided
-      version ||= 'latest'
-
-      # Add the dependency to the Podspec
-      spec.dependency(pod_name, version)
-
-      # If there are additional framework search paths, we add them to the xcconfig
-      if additional_framework_paths.any?
-        spec.xcconfig ||= {}  # Ensure xcconfig is initialized
-        spec.xcconfig["FRAMEWORK_SEARCH_PATHS"] = additional_framework_paths.join(" ")
-      end
-
-      # Handle subspec if provided
-      if subspec
-        spec.subspec(subspec) do |ss|
-          ss.dependency(pod_name, version)
-          # You can add additional logic to handle subspecs if needed
+        def self.min_ios_version_supported
+            return '15.1'
         end
-      end
-    end
-  end
-end
 
+        def self.min_xcode_version_supported
+            return '15.1'
+        end
+
+        def self.folly_config
+            return @@folly_config
+        end
+
+        def self.set_folly_config(new_folly_config)
+            @@folly_config.update(new_folly_config)
+        end
+
+        def self.boost_config
+            return @@boost_config
+        end
+
+        def self.set_boost_config(new_boost_config)
+           @@boost_config.update(new_boost_config)
+        end
+
+        def self.socket_rocket_config
+            return @@socket_rocket_config
+        end
+
+        def self.set_socket_rocket_config(new_socket_rocket_config)
+           @@socket_rocket_config.update(new_socket_rocket_config)
+        end
+
+        def self.fmt_config
+            return @@fmt_config
+        end
+
+        def self.set_fmt_config(new_fmt_config)
+            @@fmt_config.update(new_fmt_config)
+        end
+
+        def self.glog_config
+            return @@glog_config
+        end
+
+        def self.set_glog_config(new_glog_config)
+            @@glog_config.update(new_glog_config)
+        end
+
+        def self.double_conversion_config
+            return @@double_conversion_config
+        end
+
+        def self.set_double_conversion_config(new_double_conversion_config)
+            @@double_conversion_config.update(new_double_conversion_config)
+        end
+
+        def self.cxx_language_standard
+            return "c++20"
+        end
+
+        # Adding the `add_dependency_to_spec` method here
+       def self.add_dependency(spec, dependency_name, base_folder_for_frameworks, framework_name, additional_paths: [], version: nil, subspec_dependency: nil)
+           # Update Search Path
+           optional_current_search_path = spec.to_hash["pod_target_xcconfig"]["HEADER_SEARCH_PATHS"]
+           current_search_paths = (optional_current_search_path != nil ? optional_current_search_path : "")
+               .split(" ")
+           create_header_search_path_for_frameworks(base_folder_for_frameworks, dependency_name, framework_name, additional_paths)
+               .each { |path|
+                   wrapped_path = "\"#{path}\""
+                   current_search_paths << wrapped_path
+               }
+           current_pod_target_xcconfig = spec.to_hash["pod_target_xcconfig"]
+           current_pod_target_xcconfig["HEADER_SEARCH_PATHS"] = current_search_paths.join(" ")
+           spec.pod_target_xcconfig = current_pod_target_xcconfig
+
+           actual_dependency = subspec_dependency != nil ? "#{dependency_name}/#{subspec_dependency}" : dependency_name
+           # Set Dependency
+           if !version
+               spec.dependency actual_dependency
+           else
+               spec.dependency actual_dependency, version
+           end
+       end
+    end
+end
