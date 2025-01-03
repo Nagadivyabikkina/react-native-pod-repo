@@ -1,5 +1,8 @@
 require "json"
 require_relative "../../new_architecture.rb"
+require_relative "../../helpers.rb"
+
+folly_config = Helpers::Constants.folly_config
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 
@@ -23,7 +26,7 @@ Pod::Spec.new do |s|
   s.project_header_files = "cpp/**/*.h" # Don't expose C++ headers publicly to allow importing framework into Swift files
   s.requires_arc = true
 
-  install_modules_dependencies(s)
+  NewArchitectureHelper.install_modules_dependencies(s, NewArchitectureHelper.new_arch_enabled, folly_config[:version])
   if new_arch_enabled
     s.subspec "common" do |ss|
       ss.source_files         = ["common/cpp/**/*.{cpp,h}", "cpp/**/*.{cpp,h}"]
