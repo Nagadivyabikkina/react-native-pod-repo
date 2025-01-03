@@ -60,10 +60,10 @@ Pod::Spec.new do |s|
   s.dependency "React-Core/RCTWebSocket"
   s.dependency "React-RCTNetwork"
 
-  add_dependency(s, "ReactCodegen")
-  add_dependency(s, "React-NativeModulesApple")
-  add_dependency(s, "React-jsinspector", :framework_name => 'jsinspector_modern')
-  add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
+  Helpers::Constants.add_dependency(s, "ReactCodegen")
+  Helpers::Constants.add_dependency(s, "React-NativeModulesApple")
+  Helpers::Constants.add_dependency(s, "React-jsinspector", :framework_name => 'jsinspector_modern')
+  Helpers::Constants.add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
 
   if ENV["USE_HERMES"] == nil || ENV["USE_HERMES"] == "1"
     s.dependency "hermes-engine"
