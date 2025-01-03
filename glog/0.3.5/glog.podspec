@@ -2,8 +2,8 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
-
-glog_config = get_glog_config()
+require_relative "../../helpers.rb"
+glog_config = Helpers::Constants.glog_config
 glog_git_url = glog_config[:git]
 
 Pod::Spec.new do |spec|

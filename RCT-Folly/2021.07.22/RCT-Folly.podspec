@@ -5,9 +5,6 @@
 
 require_relative "../../helpers.rb"
 
-def get_folly_config()
-    return Helpers::Constants.folly_config
-end
 
 folly_config = Helpers::Constants.folly_config
 folly_compiler_flags = folly_config[:compiler_flags]
