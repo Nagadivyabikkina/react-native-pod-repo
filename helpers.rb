@@ -78,7 +78,7 @@ module Helpers
             return @@folly_config
         end
 
-        def get_folly_config()
+        def self.get_folly_config()
           return @@folly_config
         end
 
