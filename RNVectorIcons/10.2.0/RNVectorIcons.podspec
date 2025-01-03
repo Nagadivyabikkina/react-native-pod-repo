@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.homepage       = "https://github.com/oblador/react-native-vector-icons"
   s.license        = package["license"]
   s.author         = { "Joel Arvidsson" => "joel@oblador.se" }
-  s.platforms      = { :ios => "12.0", :tvos => "9.0" ,:visionos => "1.0"}
+  s.platforms      = { :ios => "9.0", :tvos => "9.0" ,:visionos => "1.0"}
   s.source         = { :git => "git://github.com/oblador/react-native-vector-icons.git", :tag => "v#{s.version}" }
 
   s.source_files   = 'RNVectorIconsManager/**/*.{h,m,mm,swift}'
