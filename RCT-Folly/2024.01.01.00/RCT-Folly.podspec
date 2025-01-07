@@ -11,7 +11,7 @@ folly_git_url = folly_config[:git]
 Pod::Spec.new do |spec|
   spec.name = 'RCT-Folly'
   # Patched to v2 to address https://github.com/react-native-community/releases/issues/251
-  spec.version = folly_release_version
+  spec.version = "2024.01.01.00"
   spec.license = { :type => 'Apache License, Version 2.0' }
   spec.homepage = 'https://github.com/facebook/folly'
   spec.summary = 'An open-source C++ library developed and used at Facebook.'
