@@ -4,8 +4,6 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
-require_relative "../../helpers.rb"
-
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']
@@ -18,7 +16,7 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_config = Helpers::Constants.folly_config
+folly_config = get_folly_config()
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_version = folly_config[:version]
 
@@ -34,7 +32,7 @@ Pod::Spec.new do |s|
   s.homepage               = "https://reactnative.dev/"
   s.license                = package["license"]
   s.author                 = "Meta Platforms, Inc. and its affiliates"
-  s.platforms              = { :ios => "11.0", :tvos => "9.2" }
+  s.platforms              = min_supported_versions
   s.compiler_flags         = folly_compiler_flags + ' -Wno-nullability-completeness'
   s.source                 = source
   s.source_files           = "Libraries/NativeAnimation/{Drivers/*,Nodes/*,*}.{h,m,mm}"
@@ -42,7 +40,7 @@ Pod::Spec.new do |s|
   s.header_dir             = "RCTAnimation"
   s.pod_target_xcconfig    = {
                                "USE_HEADERMAP" => "YES",
-                               "CLANG_CXX_LANGUAGE_STANDARD" => Helpers::Constants.cxx_language_standard,
+                               "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard(),
                                "HEADER_SEARCH_PATHS" => header_search_paths.join(" ")
                              }
   s.framework = ["UIKit", "QuartzCore"]
@@ -52,7 +50,7 @@ Pod::Spec.new do |s|
   s.dependency "React-jsi"
   s.dependency "React-Core/RCTAnimationHeaders"
 
-  Helpers::Constants.add_dependency(s, "ReactCodegen", :additional_framework_paths => ["build/generated/ios"])
-  Helpers::Constants.add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
-  Helpers::Constants.add_dependency(s, "React-NativeModulesApple")
+  add_dependency(s, "ReactCodegen", :additional_framework_paths => ["build/generated/ios"])
+  add_dependency(s, "ReactCommon", :subspec => "turbomodule/core", :additional_framework_paths => ["react/nativemodule/core"])
+  add_dependency(s, "React-NativeModulesApple")
 end

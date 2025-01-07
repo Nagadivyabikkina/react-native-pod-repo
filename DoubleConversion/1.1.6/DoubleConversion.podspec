@@ -2,8 +2,9 @@
 #
 # This source code is licensed under the MIT license found in the
 # LICENSE file in the root directory of this source tree.
-require_relative "../../helpers.rb"
-double_conversion_config = Helpers::Constants.double_conversion_config
+require_relative "../../scripts/utils.rb"
+
+double_conversion_config = get_double_conversion_config()
 double_conversion_git_url = double_conversion_config[:git]
 
 Pod::Spec.new do |spec|
@@ -28,6 +29,6 @@ Pod::Spec.new do |spec|
   }
 
   # Pinning to the same version as React.podspec.
-  spec.platforms = { :ios => "11.0", :tvos => "9.2" }
+  spec.platforms = min_supported_versions
 
 end

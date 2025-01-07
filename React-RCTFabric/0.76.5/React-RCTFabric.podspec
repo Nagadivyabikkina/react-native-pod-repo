@@ -4,7 +4,6 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
-require_relative "../../helpers.rb"
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']
@@ -17,7 +16,7 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_config = Helpers::Constants.folly_config
+folly_config = get_folly_config()
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_version = folly_config[:version]
 boost_compiler_flags = '-Wno-documentation'
@@ -49,7 +48,7 @@ Pod::Spec.new do |s|
   s.homepage               = "https://reactnative.dev/"
   s.license                = package["license"]
   s.author                 = "Meta Platforms, Inc. and its affiliates"
-  s.platforms              = { :ios => "11.0", :tvos => "9.2" }
+  s.platforms              = min_supported_versions
   s.source                 = source
   s.source_files           = "Fabric/**/*.{c,h,m,mm,S,cpp}"
   s.exclude_files          = "**/tests/*",
@@ -61,7 +60,7 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig    = {
     "HEADER_SEARCH_PATHS" => header_search_paths,
     "OTHER_CFLAGS" => "$(inherited) " + folly_compiler_flags + new_arch_flags,
-    "CLANG_CXX_LANGUAGE_STANDARD" => Helpers::Constants.cxx_language_standard
+    "CLANG_CXX_LANGUAGE_STANDARD" => rct_cxx_language_standard()
   }.merge!(ENV['USE_FRAMEWORKS'] != nil ? {
     "PUBLIC_HEADERS_FOLDER_PATH" => "#{module_name}.framework/Headers/#{header_dir}"
   }: {})
@@ -74,27 +73,27 @@ Pod::Spec.new do |s|
   s.dependency "React-RCTText"
   s.dependency "React-jsi"
 
-  Helpers::Constants.add_dependency(s, "React-FabricImage")
-  Helpers::Constants.add_dependency(s, "React-Fabric", :additional_framework_paths => [
+  add_dependency(s, "React-FabricImage")
+  add_dependency(s, "React-Fabric", :additional_framework_paths => [
     "react/renderer/components/view/platform/cxx",
     "react/renderer/imagemanager/platform/ios",
   ])
-  Helpers::Constants.add_dependency(s, "React-FabricComponents", :additional_framework_paths => [
+  add_dependency(s, "React-FabricComponents", :additional_framework_paths => [
     "react/renderer/textlayoutmanager/platform/ios",
     "react/renderer/components/textinput/platform/ios",
   ]);
 
-  Helpers::Constants.add_dependency(s, "React-nativeconfig")
-  Helpers::Constants.add_dependency(s, "React-graphics", :additional_framework_paths => ["react/renderer/graphics/platform/ios"])
-  Helpers::Constants.add_dependency(s, "React-ImageManager")
-  Helpers::Constants.add_dependency(s, "React-featureflags")
-  Helpers::Constants.add_dependency(s, "React-debug")
-  Helpers::Constants.add_dependency(s, "React-utils")
-  Helpers::Constants.add_dependency(s, "React-performancetimeline")
-  Helpers::Constants.add_dependency(s, "React-rendererdebug")
-  Helpers::Constants.add_dependency(s, "React-rendererconsistency")
-  Helpers::Constants.add_dependency(s, "React-runtimescheduler")
-  Helpers::Constants.add_dependency(s, "React-jsinspector", :framework_name => 'jsinspector_modern')
+  add_dependency(s, "React-nativeconfig")
+  add_dependency(s, "React-graphics", :additional_framework_paths => ["react/renderer/graphics/platform/ios"])
+  add_dependency(s, "React-ImageManager")
+  add_dependency(s, "React-featureflags")
+  add_dependency(s, "React-debug")
+  add_dependency(s, "React-utils")
+  add_dependency(s, "React-performancetimeline")
+  add_dependency(s, "React-rendererdebug")
+  add_dependency(s, "React-rendererconsistency")
+  add_dependency(s, "React-runtimescheduler")
+  add_dependency(s, "React-jsinspector", :framework_name => 'jsinspector_modern')
 
   if ENV["USE_HERMES"] == nil || ENV["USE_HERMES"] == "1"
     s.dependency "hermes-engine"

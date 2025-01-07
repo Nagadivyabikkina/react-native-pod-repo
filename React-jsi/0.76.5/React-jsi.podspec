@@ -4,11 +4,6 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
-require_relative "../../helpers.rb"
-
-def get_folly_config()
-    return Helpers::Constants.folly_config
-end
 
 js_engine = ENV['USE_HERMES'] == "0" ?
   :jsc :
@@ -25,7 +20,7 @@ else
   source[:tag] = "v#{version}"
 end
 
-folly_config = Helpers::Constants.folly_config
+folly_config = get_folly_config()
 folly_compiler_flags = folly_config[:compiler_flags]
 folly_version = folly_config[:version]
 boost_compiler_flags = '-Wno-documentation'
@@ -37,7 +32,7 @@ Pod::Spec.new do |s|
   s.homepage               = "https://reactnative.dev/"
   s.license                = package["license"]
   s.author                 = "Meta Platforms, Inc. and its affiliates"
-  s.platforms              = { :ios => "11.0", :tvos => "9.2" }
+  s.platforms              = min_supported_versions
   s.source                 = source
 
   s.header_dir    = "jsi"

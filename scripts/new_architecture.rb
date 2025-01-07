@@ -8,6 +8,11 @@ require 'json'
 require_relative "./utils.rb"
 require_relative "./helpers.rb"
 
+def install_modules_dependencies(spec, new_arch_enabled: NewArchitectureHelper.new_arch_enabled)
+  folly_config = get_folly_config()
+  NewArchitectureHelper.install_modules_dependencies(spec, new_arch_enabled, folly_config[:version])
+end
+
 class NewArchitectureHelper
     @@NewArchWarningEmitted = false # Used not to spam warnings to the user.
 

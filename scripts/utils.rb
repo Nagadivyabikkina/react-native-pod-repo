@@ -7,6 +7,46 @@ require 'shellwords'
 
 require_relative "./helpers.rb"
 
+def get_fmt_config()
+  return Helpers::Constants.fmt_config
+end
+
+def get_glog_config()
+  return Helpers::Constants.glog_config
+end
+
+def get_folly_config()
+  return Helpers::Constants.folly_config
+end
+
+def add_dependency(spec, pod_name, subspec: nil, additional_framework_paths: [], framework_name: nil, version: nil, base_dir: "PODS_CONFIGURATION_BUILD_DIR")
+  fixed_framework_name = framework_name != nil ? framework_name : pod_name.gsub("-", "_") # frameworks can't have "-" in their name
+  ReactNativePodsUtils.add_dependency(spec, pod_name, base_dir, fixed_framework_name, :additional_paths => additional_framework_paths, :version => version)
+end
+
+def get_socket_rocket_config()
+  return Helpers::Constants.socket_rocket_config
+end
+
+def get_double_conversion_config()
+  return Helpers::Constants.double_conversion_config
+end
+
+def min_ios_version_supported
+  return Helpers::Constants.min_ios_version_supported
+end
+
+# This function returns the min supported OS versions supported by React Native
+# By using this function, you won't have to manually change your Podfile
+# when we change the minimum version supported by the framework.
+def min_supported_versions
+  return  { :ios => min_ios_version_supported }
+end
+
+def rct_cxx_language_standard()
+  return Helpers::Constants.cxx_language_standard
+end
+
 # Utilities class for React Native Cocoapods
 class ReactNativePodsUtils
     def self.warn_if_not_on_arm64

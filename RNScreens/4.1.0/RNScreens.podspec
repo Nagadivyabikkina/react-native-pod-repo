@@ -1,8 +1,6 @@
 require "json"
-require_relative "../../new_architecture.rb"
-require_relative "../../helpers.rb"
 
-folly_config = Helpers::Constants.folly_config
+require_relative "../../scripts/new_architecture.rb"
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 
@@ -12,8 +10,8 @@ source_files = new_arch_enabled ? 'ios/**/*.{h,m,mm,cpp}' : ["ios/**/*.{h,m,mm}"
 
 Pod::Spec.new do |s|
   s.name         = "RNScreens"
-  s.version      = "4.1.0"
-  s.summary      = "Native navigation primitives for your React Native app."
+  s.version      = package["version"]
+  s.summary      = package["description"]
   s.description  = <<-DESC
                   RNScreens - first incomplete navigation solution for your React Native app
                    DESC
@@ -26,7 +24,7 @@ Pod::Spec.new do |s|
   s.project_header_files = "cpp/**/*.h" # Don't expose C++ headers publicly to allow importing framework into Swift files
   s.requires_arc = true
 
-  NewArchitectureHelper.install_modules_dependencies(s, NewArchitectureHelper.new_arch_enabled, folly_config[:version])
+  install_modules_dependencies(s)
   if new_arch_enabled
     s.subspec "common" do |ss|
       ss.source_files         = ["common/cpp/**/*.{cpp,h}", "cpp/**/*.{cpp,h}"]
