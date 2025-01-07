@@ -4,7 +4,7 @@
 # LICENSE file in the root directory of this source tree.
 
 require "json"
-require_relative "../../helpers.rb"
+require_relative "../../scripts/helpers.rb"
 
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']
