@@ -7,6 +7,10 @@ require 'shellwords'
 
 require_relative "./helpers.rb"
 
+def get_boost_config()
+  return Helpers::Constants.boost_config
+end
+
 def get_fmt_config()
   return Helpers::Constants.fmt_config
 end
