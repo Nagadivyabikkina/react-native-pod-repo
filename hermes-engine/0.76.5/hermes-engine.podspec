@@ -6,19 +6,14 @@
 require "json"
 require_relative "./hermes-utils.rb"
 
-react_native_path = File.dirname(Pod::Executable.execute_command('node', ['-p',
-  'require.resolve(
-  "react-native",
-    {paths: [process.argv[1]]},
-  )', __dir__]).strip
-)
+react_native_path = ""
 
 # package.json
 package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
 version = package['version']
 
-source_type = hermes_source_type(version, react_native_path)
-source = podspec_source(source_type, version, react_native_path)
+source_type = 'prebuilt'
+source = "git@github.com:facebook/react-native.git"
 
 Pod::Spec.new do |spec|
   spec.name        = "hermes-engine"
