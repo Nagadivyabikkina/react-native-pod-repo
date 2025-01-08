@@ -10,7 +10,7 @@ source_files = new_arch_enabled ? 'ios/**/*.{h,m,mm,cpp}' : ["ios/**/*.{h,m,mm}"
 
 Pod::Spec.new do |s|
   s.name         = "RNScreens"
-  s.version      = package["version"]
+  s.version      = "4.4.0"
   s.summary      = package["description"]
   s.description  = <<-DESC
                   RNScreens - first incomplete navigation solution for your React Native app
