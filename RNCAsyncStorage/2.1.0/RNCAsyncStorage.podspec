@@ -1,18 +1,17 @@
 require 'json'
-# require_relative "../../new_architecture.rb"
 
-package = JSON.parse(File.read(File.join(__dir__, "..", "..", "package.json")))
+package = JSON.parse(File.read(File.join(__dir__, 'package.json')))
 
 fabric_enabled = ENV['RCT_NEW_ARCH_ENABLED'] == '1'
 
 Pod::Spec.new do |s|
   s.name         = "RNCAsyncStorage"
-  s.version      = "2.1.0"
-  s.summary      = "Asynchronous, persistent, key-value storage system for React Native."
+  s.version      = package['version']
+  s.summary      = package['description']
   s.license      = package['license']
 
-  s.authors      = "Krzysztof Borowy <contact@kborowy.com>"
-  s.homepage     = "https://github.com/react-native-async-storage/async-storage#readme"
+  s.authors      = package['author']
+  s.homepage     = package['homepage']
 
   s.source       = { :git => "https://github.com/react-native-async-storage/async-storage.git", :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,mm}"
