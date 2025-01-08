@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source       = {
     :git => "https://github.com/react-native-async-storage/async-storage.git",
-    :tag => "v2.1.0"  # Correct tag reference
+#     :tag => "v2.1.0"  # Correct tag reference
   }
   s.source_files  = "ios/**/*.{h,m,mm}"
   s.resource_bundles = { "RNCAsyncStorage_resources" => "ios/PrivacyInfo.xcprivacy" }
