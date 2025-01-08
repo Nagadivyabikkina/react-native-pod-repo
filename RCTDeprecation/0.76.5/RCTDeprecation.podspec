@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
     s.author                 = "Meta Platforms, Inc. and its affiliates"
     s.license                = package["license"]
     s.homepage               = "https://reactnative.dev/"
-    s.source                 = { :git => 'https://github.com/facebook/react-native.git', :tag => 'v#{version}' }
+    s.source = { :git => 'https://github.com/facebook/react-native.git', :tag => "v#{version}" }
     s.summary                = "Macros for marking APIs as deprecated"
     s.source_files           = ["Libraries/RCTFoundation/RCTDeprecation/Exported/*.h", "RCTDeprecation.m"]
     s.pod_target_xcconfig    = {
